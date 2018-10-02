@@ -81,3 +81,38 @@ Application Architecure 는 소프트웨어 디자인의 하나의 분야인데,
 시스템 및 시스템 컴포넌트를 시험하는 환경의 일부분으로 시험을 지원하는 목적하에 생성된 코드와 데이터. 시험 드라이버 (test driver)라고도 하며 일반적으로 단위 시험이나 모듈 시험에 사용하기 위해 코드 개발자가 만든다. 단순히 시험을 위한 사용자 인터페이스를 제공하거나 정교하게 제작된 경우, 코드가 변경되었을 때에도 항상 같은 결과를 제공하여 시험을 자동화시킬 수 있도록 디자인되어 있다.
 
 <br>
+
+### 애플리케이션들은 하나의 피드백 루프다(Applications Are a Feedback Loop)
+
+뷰 계층과 모델 계층은 서로 통신할(communicate) 필요가 있다. 그러므로 두 계층간의 연결이 존재한다. 모델 계층과 뷰 계층이 명확히 분리되어 있고 불가피하게 연결된 것이 아니라고 가정한다면, 두 계층 간의 통신(communication)은 몇 가지 형태(some form)의 변환(translation)이 필요할 것입니다. 
+
+<br>
+
+![View and Model](https://i.imgur.com/l6Mtk92.png)
+
+<br>
+
+그 결과는 피드백 루프(feedback loop)입니다. 디스플레이와 입력 기능(input functionality) 모두를 갖춘 유저 인터페이스는 근본적으로 피드백 디바이스 이기 때문이죠. 각각의 애플리케이션 디자인 패턴에 대한 도전(Challenge)은 통신(Communication)과 디펜던시(Dependencies), 그리고 위의 다이어그램에서 보여지는 화살표에 내재된(inherent) 변환(Transformation) 을 다루는 방법이라고 할 수 있습니다.
+
+<br>
+
+모델 계층과 뷰 계층 간의 경로에서 서로 다른 부분은 각자의 이름을 가지고 있습니다. 위 그림에서 *View Action*  이란 이름은 버튼을 탭하거나 테이블 뷰의 하나의 열(row)를 선택한 것과 같이, 사용자가 먼저 정한(user-initiated) 이벤트에 답하여 뷰에 의해 작동된(triggered) 코드 경로(code path)를 나타냅니다.   
+View Action 이 모델 계층을 통해 발송(sent)되었을 때, View Action 은 *Model Action* (Action 혹은 Update 를 실행하기 위한 모델 객체의 명령)으로 변환됩니다. 이러한 명령(instruction)은 또한 *메시지* (message, 특히 *reducer* 라는 것을 사용하여 모델이 바뀌게 될 때)라 불리기도 합니다. View Actions 을 Model Actions 로 변환시키는 것(그림처럼) 그리고 이 경로를 따르는 기타 로직(other logic)은 대화 로직(interaction logic) 이라 불립니다. 
+
+<br>
+
+*model update* 는 하나 혹은 그 이상의 모델 객체의 상태에 대한 변화(change)를 말한다. model update 는 일반적으로 *model notification* 을 야기(trigger)한다. 즉 변경된 내용을 알려(describe)주는 모델 계층으로부터 나온 식별할 수 있는(observable) 알림(notification)이다. 뷰가 모델 데이터(model data)에 의존하고 있을 때, 알림(notifications)은 *뷰의 변화(view change)* 를 야기(trigger)하여 뷰 계층의 컨텐츠를 업데이트 해야만 한다. 이러한 알림은 다양한 형태로 나타날 수 있는데, Foundation 의 알림, 델리게이트(Delegate), 콜백(Callback), 혹은 또 다른 메커니즘(mechanism)과 같은 형태이다. 모델 알림과 데이터를 뷰의 변화(View changes)로 변화시키는 것과 이 경로에 속하는 다른 로직은 *presentation logic* 이라 불립니다.  
+
+<br> 
+
+애플리케이션 패턴에 따라서, 몇몇의 상태는 문서 모델 외부에서 유지될 수 있으며 그러므로 해당 상태를 업데이트하는 액션(actions)은 문서 모델을 통하는 경로를 따르지 않습니다. 이 패턴의 일반적인 예는 네비게이션 상태(navigation state)인데, 이 상태에서는 뷰 계층(Cocoa 스토리보드에서 사용되는 용어를 따라 소위 *scenes* 이라 불림)의 하위 섹션들(subsections)이 서로 교환될 수 있습니다(may be swapped in and out). 
+
+<br>
+
+문서 모델(document model)의 일부분이 아닌 앱의 상태는 *view state* 라 불립니다. Cocoa 에서 대부분의 뷰 객체들은 그들 자신의 뷰 상태를 관리하며, 컨트롤러 객체들은 뷰 상태를 유지하는 것을 관리한다. Diagrams of view state in Cocoa typically involve shortcuts across the feedback loop or individual layers that loop back on themselves. 다른 아키텍쳐에서, 뷰 상태는 컨트롤러 계층의 일부가 아니며 오히려 모델 계층의 일부다(그러나, 의미상으로는 뷰 상태는 문서 모델의 일부가 아니다).  
+
+<br>
+
+모든 상태가 모델 계층에서 유지되고 모든 변화가 이러한 모든 피드백 루프 경로를 따랐을 때, 우리는 그것을 *일방향성 데이터 흐름(unidirectional data flow)* 이라 하겠습니다. 만약에 어느 뷰 객체 혹은 중간 계층 객체(intermediate layer object)에 대해 새롭게 생성되거나 업데이트 될 유일한 방법이 모델로부터의 알림을 통해서라면, 그 패턴은 일반적으로 단일 방향성입니다.
+
+<br> 

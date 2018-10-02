@@ -116,3 +116,29 @@ View Action 이 모델 계층을 통해 발송(sent)되었을 때, View Action �
 모든 상태가 모델 계층에서 유지되고 모든 변화가 이러한 모든 피드백 루프 경로를 따랐을 때, 우리는 그것을 *일방향성 데이터 흐름(unidirectional data flow)* 이라 하겠습니다. 만약에 어느 뷰 객체 혹은 중간 계층 객체(intermediate layer object)에 대해 새롭게 생성되거나 업데이트 될 유일한 방법이 모델로부터의 알림을 통해서라면, 그 패턴은 일반적으로 단일 방향성입니다.
 
 <br> 
+
+## 아키텍쳐적(건축학적)인 기술들(Architectural Technologies)
+
+애플의 플랫폼에서 기준이되는 코코아 프레임워크는 일부 아키텍쳐적인 도구들을 제공합니다. *Notifications(알림)* 는 단일 소스의 값들을 0개 이상의 수신자(Listeners)들에게 브로드캐스팅(알리는 것) 합니다. *Key-value observing* (KVO)는 한 객체의 프로퍼티에 대한 변경 내용을 다른 객체로 보고할 수 있습니다. 하지만 Cocoa 에 아키텍쳐적 도구들의 목록이 빠르게 없어지기(run out) 때문에, 우리는 추가적인 프레임워크를 사용할 것입니다. 
+
+<br>
+
+> #### 참고 : Key-value observing (KVO)
+> * 모델 객체의 어떤 값이 변경되었을 경우 이를 UI에 반영하기 위해서 컨트롤러는 모델 객체에 Observing을 도입하여 델리게이트에 특정 메시지를 보내 처리할 수 있도록 하는 것입니다. 즉 특정 키의 값의 변화를 감지하기 위한 기능이다. Objective-C 를 위해 만들어진 기능이라 등장한지는 제법 되었지만, 현재의 앱 개발 패러다임에 있어서 - 모델(Model)의 변화를 뷰(View)에 반영하기 위함 등 - 값 변화를 인식하는 것은 굉장히 중요하기 때문에 무시할 수는 없는 기능
+> * 출처 : http://seorenn.blogspot.com & http://minsone.github.io/mac/ios/ioskey-value-coding-key-value-observing
+
+<br>
+
+여기서 사용할 서드 파티 기술은 *reactive programming(반응형 프로그래밍)* 입니다. 얘는 변경 내용들을 통신하기 위한 툴인데, notifications 나 KVO 와는 달리 source 와 destination 간의 변환에 포커스를 맞추어, 구성 요소들간의 로직이 전달되도록 표현합니다(it focuses on the transformations between the source and destination, allowing logic to be expressed in transit between components.).  
+
+<br>
+
+reactive programming 이나 KVO 와 같은 기술들을 바인딩을 생성하기 위해서 사용할 수 있습니다. 바인딩은 무엇인가요? 얘는 source 와 target 을 가져오며, source 에 변화가 발생할 때마다, 얘는 target 을 업데이트 합니다. This is syntactically different from a manual observation; rather than writing observation logic, 우리는 오직 source 와 target 만을 특정하고, 프레임워크는 나머지를 처리합니다.
+
+<br>
+
+macOS 의 Cocoa 는 Cocoa bindings 를 포함하고 있는데, 얘는 바인등의 두 가지 방식의 형태를 가집니다. 모든 피관찰자(All observables)는 또한 관찰자가 되며 그리고 한 방향으로 바인딩 커넥션(binding connection) 을 만드는 것은 또한 역 방향으로 연결을 만들어 냅니다. None of the bindings provided by RxCocoa (used in the MVVM-C chapter) or CwlViews (used in the MAVB chapter) are two-way bindings — so any discussion of bindings in this book will refer solely to one-way bindings.
+
+<br>
+
+

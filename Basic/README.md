@@ -28,41 +28,41 @@
 
 <br>
 
+MVC 패턴을 여러분의 어플리케이션에서 잘 구현한다는 것은 무엇을 의미할까요? 바로 **각각의 객체(object)가 M-V-C 그룹 중 하나에 속하는 것입니다**
+
+* 컨트롤러를 통해서 뷰와 모델이 통신하는 것은 다음 그림처럼 표현해 볼 수 있어요.
+
+![MVC Diagram](https://i.imgur.com/IRc8Wh1.png)
+
+* 모델은 **임의의 데이터의 변화를 컨트롤러에게 알려주고**, 반대로 **컨트롤러는 뷰에 데이터를 업데이트합니다**. 그리고 뷰는 **유저가 실행한 액션을 컨트롤러에게 알려주며**, 컨트롤러는 **만약 필요하다면 모델을 업데이트 할 것이거나, 혹은 어떤 요청된 데이터를 검색할(retrieve) 것입니다.**
+
+* 여러분은 왜 컨트롤러를 버릴 수 없고 같은 클래스 내에 뷰와 모델을 구현할 수 없는지 궁금할 것입니다. 훨씬 그게 쉬어 보이는데 말이죠.
+
+* 그것은 코드의 분리와 재사용성으로부터 나온다고 볼 수 있어요. 이상적으로는 뷰는 모델로부터 완전히 분리되어야 합니다. **만약 뷰가 특정 모델의 구현에 의존한다면, 몇몇의 다른 데이터를 표현하기 위해서 다른 모델과 함께 뷰가 재 사용될 수 없게 됩니다.**
+
+<br>
+
+## MVC 패턴 간단 사용법
+
+<br>
+
+* 프로젝트 내에서 **각각의 클래스는 Controller 나 Model 이나 View 가 되도록 할 필요가 있습니다**. *하나의 클래스 안에 두 역할의 기능이 들어있지 않아야 합니다.* 
+
+* 3개의 프로젝트 그룹을 만들어야 합니다. 각각의 카테고리에 하나씩 여러분의 코드를 붙잡아 두기 위함이죠.
+
+* 각 그룹의 이름을 *Model*, *View*, *Controller* 로 지정해줍니다.
+
+* 각각의 폴더에 역할에 맞는 파일을 생성해줍니다.
+
+* AppDelegate 파일, Asset 폴더, .plist, 스토리보드 파일은 그냥 두세요 ! 
+
+* 애플리케이션의 핵심은 이 3개의 카테고리 안에 포함되어 있다고 보시면 됩니다.
+
+<br>
+
 ### 여기까지 번역 완료.  아래는 공부는 되었지만 번역 중인 부분들.
 
 <br>
-
-* A good implementation of this design pattern in your application means that **each object falls into one of these groups**.
-
-* The communication between View to Model through Controller can be best described with the following diagram:
-
-(그림)
-
-* The Model **notifies the Controller of any data changes**, and in turn, the Controller **updates the data in the Views**. The View **can then notify the Controller of actions the user** performed and the Controller **will either update the Model if necessary or retrieve any requested data**.
-
-* You might be wondering why you can’t just ditch the Controller, and implement the View and Model in the same class, as that seems a lot easier.
-
-* It all comes down to **code separation and reusability**. Ideally, the View should be completely separated from the Model. If the View doesn’t rely on a specific implementation of the Model, then it **can be reused with a different model to present some other data**.
-
-* For example, if in the future you’d also like to add movies or books to your library, you **could still use the same AlbumView to display your movie and book objects**. Furthermore, if you **want to create a new project that has something to do with albums**, you could simply reuse your Album struct, because it’s not dependent on any view. That’s the strength of MVC!
-
-<br>
-
-## How to Use the MVC Pattern
-
-* First, you need to ensure that **each class in your project is either a Controller, a Model or a View**; *don’t combine the functionality of two roles in one class*.
-
-* Second, in order to ensure that you conform to this method of work **you should create three project groups to hold your code, one for each category**.
-
-* Navigate to File\New\Group (or press on Command+Option+N) and **name the group Model**. *Repeat the same process to create View and Controller groups*.
-
-* Now drag Album.swift to the Model group. Drag AlbumView.swift to the View group, and finally drag ViewController.swift to the Controller group.
-
-(사진)
-
-* Your project already looks a lot better without all those files floating around. Obviously you *can have other groups and classes*, but **the core of the application is contained in these three categories**.
-
-* Now that your components are organized, you **need to get the album data from somewhere**. You’ll **create an API class to use throughout your code to manage the data** — which presents an opportunity to discuss your next design pattern — *the Singleton*.
 
 ## The Singleton Pattern
 

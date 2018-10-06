@@ -64,15 +64,23 @@ MVC 패턴을 여러분의 어플리케이션에서 잘 구현한다는 것은 �
 
 <br>
 
-## The Singleton Pattern
+## 싱글톤 패턴
 
-* The Singleton design pattern ensures that **only one instance exists for a given class and that there’s a global access point to that instance.** It usually uses **lazy loading to create the single instance when it’s needed the first time**.
+<br>
 
-> **Note** : Apple uses this approach a lot. For example: *UserDefaults.standard*, *UIApplication.shared*, *UIScreen.main*, *FileManager.default* all return a Singleton object.
+* 싱글톤 디자인 패턴은 **해당 클래스에 오직 단 하나의 인스턴스만 존재하도록 보장해주며, 그 인스턴스에 대해 전역 접근 포인트(global access point)가 있도록 보장해줍니다**. 이 패턴은 일반적으로 **지연 로딩(lazy loading)을 사용하는데, 처음 필요할 때에 단 하나의 인스턴스를 생성하기 위함입니다**. 
 
-* You’re likely wondering why you care if there’s more than one instance of a class floating around. Code and memory is cheap, right?
+<br>
 
-* There are some cases in which it makes sense to have exactly one instance of a class. For example, **there’s only one instance of your application and one main screen for the device, so you only want one instance of each. Or, take a global configuration handler class: it’s easier to implement a thread-safe access to a single shared resource, such as a configuration file, than to have many class modifying the configuration file possibly at the same time**.
+> **주목** : 애플은 이러한 접근을 많이도 사용해요. 예를 들면 *UserDefaults.standard*, *UIApplication.shared*, *UIScreen.main*, *FileManager.default* 까지 얘내 들은 모든 싱글턴 객체를 리턴하죠.
+
+<br>
+
+* 왜 이렇게 해야할까요? 코드와 메모리가 비싼 것도 아닌데요...
+
+* 좋은 질문입니다. 몇 가지 케이스가 있어요. 예를 들면 **여러분의 애플리케이션과 디바이스에 대한 하나의 메인 스크린에는 단지 하나의 인스턴스가 존재하죠. 그래서 여러분의 단지 각각에 대해 하나의 인스턴스만을 원하게 되는 거에요. 또 동시에 가능한 구성 파일을 많은 클래스가 수정하는 것보다, 단 하나의 공유된 리소스에 대해 *thread-safe* 한 접근을 구현하게 위함이죠. (멀티스레드 환경에서는 스레드간 충돌 문제가 일어날 수 있는데, 싱글톤 패턴을 활용하면 이러한 문제로부터 안전할 수 있어서 *thread-safe* 하다고 이야기 합니다.)**
+
+<br>
 
 ## What Should You Be Careful About?
 

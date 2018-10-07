@@ -1,11 +1,11 @@
 # Swift를 활용한 iOS 디자인 패턴
 
-### from raywenderlich.com
+### Ref. [Raywenderlich's iOS Design Pattern](https://www.raywenderlich.com/477-design-patterns-on-ios-using-swift-part-1-2)
 
 ### iOS 디자인 패턴 ?
 
 * 디자인 패턴(Design Pattern)은 무엇을 의미하는가 ?
-* 디자인 패턴이라는 것은 **재사용가능(Reusable)한 솔루션(Solution)**이라고 할 수 있어요. 
+* 디자인 패턴 : **재사용가능(Reusable)한 솔루션(Solution)** 
 * **소프트웨어 디자인**에서의 일반적인 문제들에 대한 솔루션이죠.
 * 여러분이 이해하기 쉽고 재사용하기에도 쉬운 코드를 짜도록 돕기 위해 고안된 **템플릿**.
 * 디자인 패턴은 또 여러분들이 루즈하게 결합된 코드를 만들어 내도록 도와줌으로서, 여러분들이 혼란스러워 하지 않으면서 여러분이 짠 코드의 구성요소들(components)을 변화(Change)시키거나 대체(Replace)할 수 있도록 해줍니다. 
@@ -23,12 +23,12 @@
 <br>
 
 >* **모델(Model)** : 애플리케이션 데이터(Application Data)를 가지고 있으며 데이터를 처리하는 방법을 정의하고 있는 객체
->* **뷰(View)** : 모델(Model)의 **시각적 표현(Visual representation)**을 담당하고 있는 객체이자 기본적으로, 유저가 모든 UIView 에서 파생된 객체와 상호작용할 수 있는 **제어 장치(controls)** (The objects that are in charge of **the visual representation of the Model and the controls** the user can interact with; basically, all the UIView-derived objects)
+>* **뷰(View)** : 모델(Model)의 **시각적 표현(Visual representation)**을 담당하고 있는 객체이자 기본적으로, 유저가 모든 UIView 에서 파생된 객체와 상호작용할 수 있는 **제어 장치(controls)** (원문 : The objects that are in charge of **the visual representation of the Model and the controls** the user can interact with; basically, all the UIView-derived objects)
 >* **컨트롤러(Controller)** : 컨트롤러는 **모든 작업을 조정하는 중재인(mediator)**입니다. 컨트롤러는 모델로부터 데이터에 접근(access)하고 그것을 뷰와 함께 표시(display)하고, 이벤트(events)를 수신하고 데이터를 필요에 따라 처리합니다. 
 
 <br>
 
-MVC 패턴을 여러분의 어플리케이션에서 잘 구현한다는 것은 무엇을 의미할까요? 바로 **각각의 객체(object)가 M-V-C 그룹 중 하나에 속하는 것입니다**
+* MVC 패턴을 여러분의 어플리케이션에서 잘 구현한다는 것은 무엇을 의미할까요? 바로 **각각의 객체(object)가 M-V-C 그룹 중 하나에 속하는 것입니다**
 
 * 컨트롤러를 통해서 뷰와 모델이 통신하는 것은 다음 그림처럼 표현해 볼 수 있어요.
 
@@ -46,21 +46,17 @@ MVC 패턴을 여러분의 어플리케이션에서 잘 구현한다는 것은 �
 
 <br>
 
-* 프로젝트 내에서 **각각의 클래스는 Controller 나 Model 이나 View 가 되도록 할 필요가 있습니다**. *하나의 클래스 안에 두 역할의 기능이 들어있지 않아야 합니다.* 
+* 첫째, 프로젝트 내에서 **각각의 클래스는 Controller 나 Model 이나 View 가 되도록 할 필요가 있습니다**. *하나의 클래스 안에 두 역할의 기능이 들어있지 않아야 합니다.* 
 
-* 3개의 프로젝트 그룹을 만들어야 합니다. 각각의 카테고리에 하나씩 여러분의 코드를 붙잡아 두기 위함이죠.
+* 둘째, 3개의 프로젝트 그룹을 만들어야 합니다. 각각의 카테고리에 하나씩 여러분의 코드를 붙잡아 두기 위함이죠.
 
-* 각 그룹의 이름을 *Model*, *View*, *Controller* 로 지정해줍니다.
+* 셋째, 각 그룹의 이름을 *Model*, *View*, *Controller* 로 지정해줍니다.
 
-* 각각의 폴더에 역할에 맞는 파일을 생성해줍니다.
+* 넷째, 각각의 폴더에 역할에 맞는 파일을 생성해줍니다.
 
-* AppDelegate 파일, Asset 폴더, .plist, 스토리보드 파일은 그냥 두세요 ! 
+* 다섯째, AppDelegate 파일, Asset 폴더, .plist, 스토리보드 파일은 그냥 두세요 ! 
 
 * 애플리케이션의 핵심은 이 3개의 카테고리 안에 포함되어 있다고 보시면 됩니다.
-
-<br>
-
-### 여기까지 번역 완료.  아래는 공부는 되었지만 번역 중인 부분들.
 
 <br>
 
@@ -72,66 +68,73 @@ MVC 패턴을 여러분의 어플리케이션에서 잘 구현한다는 것은 �
 
 <br>
 
-> **주목** : 애플은 이러한 접근을 많이도 사용해요. 예를 들면 *UserDefaults.standard*, *UIApplication.shared*, *UIScreen.main*, *FileManager.default* 까지 얘내 들은 모든 싱글턴 객체를 리턴하죠.
+**Ref. 전역 접근 지점(Global access point)** : 모든 클래스에서 접근해서 사용할 수 있게끔 싱글톤을 구현하였기 때문에, 전역 접근 지점이라고 할 수 있다.
 
 <br>
 
-* 왜 이렇게 해야할까요? 코드와 메모리가 비싼 것도 아닌데요...
-
-* 좋은 질문입니다. 몇 가지 케이스가 있어요. 예를 들면 **여러분의 애플리케이션과 디바이스에 대한 하나의 메인 스크린에는 단지 하나의 인스턴스가 존재하죠. 그래서 여러분의 단지 각각에 대해 하나의 인스턴스만을 원하게 되는 거에요. 또 동시에 가능한 구성 파일을 많은 클래스가 수정하는 것보다, 단 하나의 공유된 리소스에 대해 *thread-safe* 한 접근을 구현하게 위함이죠. (멀티스레드 환경에서는 스레드간 충돌 문제가 일어날 수 있는데, 싱글톤 패턴을 활용하면 이러한 문제로부터 안전할 수 있어서 *thread-safe* 하다고 이야기 합니다.)**
+**Ref. 지연 로딩(lazy loading)** : 필요한 순간에서 사용할 수 있도록, 메모리 상에 올리지 않고 있다가 사용하는 순간에 메모리에 올라갈 수 있도록 'lazy' 키워드를 변수 앞에 사용한다. 
 
 <br>
 
-## What Should You Be Careful About?
+> **주목** : 애플은 싱글톤을 많이 사용합니다. 예를 들면 *UserDefaults.standard*, *UIApplication.shared*, *UIScreen.main*, *FileManager.default* 까지 얘내 들은 모든 싱글톤 객체를 리턴하죠.
 
 <br>
 
->* **Note from Ray**: This pattern has a history of **being overused (or otherwise misused)** by both beginner and experienced developers, so we are including this brief excerpt from our book Design Patterns by Tutorials by Joshua Greene that explains some things to be careful about with this pattern.
+* Q. 왜 이렇게 해야할까요? 코드와 메모리가 비싼 것도 아닌닐텐데요.. 
 
-* **The singleton pattern is very easy to overuse.**
+* A. 좋은 질문입니다. 몇 가지 케이스가 있어요. 예를 들면 **여러분의 애플리케이션과 디바이스에 대한 하나의 메인 스크린에는 단지 하나의 인스턴스가 존재하죠. 그래서 여러분의 단지 각각에 대해 하나의 인스턴스만을 원하게 되는 거에요. 또 동시에 가능한 구성 파일을 많은 클래스가 수정하는 것보다, 단 하나의 공유된 리소스에 대해 *thread-safe* 한 접근을 구현하게 위함이죠. (멀티스레드 환경에서는 스레드간 충돌 문제가 일어날 수 있는데, 싱글톤 패턴을 활용하면 이러한 문제로부터 안전할 수 있어서 *thread-safe* 하다고 이야기 합니다.)**
 
-* If you encounter(접하다) a situation where you’re tempted to use a singleton, first consider other ways to accomplish your task.
+<br>
 
-* For example, singletons are **not appropriate if you’re simply trying to pass information from one view controller to another.** Instead, **consider passing models via an initializer or property.**
+## 싱글톤을 사용할 때, 주의할 점.
 
-* If you determine you actually do need a singleton, **consider whether a singleton plus makes more sense**.
+<br>
+
+>* **주목** : 싱글톤 패턴은 주니어나 시니어나 관계 없이 과다 사용의 역사를 가지고 있습니다. 그래서 과다 사용의 예시를 많이 살펴보는 것은 중요합니다.
+
+* **Singleton pattern 은 이 패턴의 남용에 매우 주의를 기울여야 합니다.**
+
+* 여러분이 싱글톤을 사용할 유혹을 받는다면 먼저 다른 방법을 고려해보세요.
+
+* 예를 들어, **하나의 뷰 컨트롤러에서 다른 뷰 컨트롤러로 단순히 정보를 보내려고 시도하는 경우에는 싱글톤은 부적절합니다. 대신에, 이니셜라이저나 프로퍼티를 통해 모델을 보내는 것을 고려해보세요**.
+
+* 여러분이 만약 싱글톤이 필요하다고 결정했다면, **싱글톤이 정말 더 적절한 것인지 아닌지 고려해보세요.**
 
 * Will having more than one instance **cause problems?** Will it ever be useful to have custom instances? Your answers will determine whether its better for you to use a true singleton or singleton plus.
 
-* The most common reason why singleton’s are problematic is **testing**. If you have **state being stored in a global object like a singleton then order of tests can matter**, and it can be painful to mock them. Both of these reasons make **testing a pain**.
+* 싱글톤이 문제가 많은 가장 일반적인 이유는 **테스팅** 입니다. **전역 객체에 만약 상태가 저장되어 있는 경우(싱글톤처럼) 테스트 순서가 중요할 수 있으며**, 이를 무시하기에는 어렵습니다. 이러한 이유들은 테스팅을 고통스럽게 만들게 됩니다. 
 
-* Lastly, beware of “code smell”, indicating your use case isn’t appropriate as a singleton at all. For example, **if you often need many custom instances, your use case may be better as a regular object.**
-
-<br>
-
-> **Code Smell ** : Anything in a program's source code that suggests the presence of a design problem.
+* 마지막으로 'Code smell' 에 주의하세요. 여러분의 유스 케이스(Use case)가 싱글톤으로는 적합하지 않음을 나타냅니다. 예를 들어 **만약 여러분이 종종 많은 커스텀 인스턴스들을 필요로 한다면, 여러분의 유스 케이스는 아마도 일반 객체(regular object)로서 아마 더 나을 것입니다.** 
 
 <br>
 
-## How to Use the Singleton Pattern
+* **Ref. 유스케이스(Use case)**
+
+>* 시스템 사이에서 교환되는 메시지의 중요도에 의해 클래스나 시스템에 제공되는 고유 기능 단위이며, 상호 행위자 밖의 하나 혹은 그 이상의 것이 시스템에 의해서 실행되는 행위를 함께 함
+>* 시스템이 제공하는 서비스 혹은 기능
+>* 시스템이 액터에게 제공하는 사용자 관점의 기능단위
+>* 액터의 요청에 반응하여 원하는 처리를 수행하거나 정보를 제공
+>* 액터와 한번 이상의 상호 작용을 통한 의미 있는 묶음의 시스템 행위
+>* 의미 있는 자기완결형의 서비스 단위
+>* 사용자관점에서의 정의가 필요 
 
 <br>
 
-* To ensure there is only one instance of your singleton, you **must make it impossible for anyone else to make an instance**. Swift allows you to do this by marking the **initializers as private**. You can then add **a static property for the shared instance, which is initialized inside the class**.
+* Ref. [**Definition of Code Smell** from wikipedia](https://ko.wikipedia.org/wiki/코드_스멜)
 
-* You’ll implement this pattern by creating a singleton class to manage all the album data.
+<br>
 
-* You’ll notice there’s a group called API in the project; this is where you’ll put all the classes that will provide services to your app. Create a new file inside this group by right-clicking the group and selecting New File. Select iOS > Swift File. Set the file name to LibraryAPI.swift and click Create.
+## 싱글톤 패턴 만드는 방법
 
-* Xcode 프로젝트에 코드 구현(LibraryAPI.swift)
+<br>
 
-* You now have a Singleton object as the entry point to manage the albums. Take it a step further and create a class to handle the persistence of your library data.
+* 오직 단 하나의 인스턴스를 갖는 싱글톤을 구현하기 위해서, 여러분은 **다른 누군가가 인스턴스를 만드는 것을 절대로 불가능하게 해야합니다**. 스위프트에서는 여러분에게 **private 키워드가 들어간 이니셜라이져**를 정의함으로서 이것을 가능하게 만들어 줍니다. 그리고 여러분은 **클래스 내에서 초기화되는 공유되는 인스턴스를 위한 정적(Static) 프로퍼티를 만들 수 있습니다**. 
 
-* Now within the group API create a new file. Select iOS > Swift File. Set the class name to PersistencyManager.swift and click Create.
-Open PersistencyManager.swift and add the following code.
+* 여러분은 모든 데이터를 관리하기 위한 **싱글턴 클래스를 생성**함으로서 이 패턴을 구현할 것입니다.
 
-* Xcode 프로젝트에 코드 구현(PersistencyManager.swift)
+* 맨 위의 참고 사이트의 튜토리얼을 통해서 여러분은 앨범을 관리하기 위한 시작 지점으로서 싱글톤 객체를 가지게 되었습니다. 튜토리얼을 통해, 여러분의 데이터의 지속성을 다루기 위해서 클래스를 생성하게 될 것입니다. 
 
-* These methods allow you to **get, add, and delete albums.**
-
-* Build your project just to make sure everything still compiles correctly.
-
-* At this point, you might wonder where the *PersistencyManager* class comes in since it’s not a Singleton. You’ll see the relationship between *LibraryAPI* and *PersistencyManager* in the next section where you’ll look at the **Facade** design pattern.
+* 과정 번역은 생략 !
 
 <br>
 
